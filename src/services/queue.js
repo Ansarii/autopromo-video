@@ -75,14 +75,14 @@ const storage = {
         }
         return await redis.lpush(key, value);
     },
-    async brpop(key, timeout) {
+    async rpop(key) {
         if (useInMemory) {
             if (inMemoryStorage.queue.length > 0) {
-                return [key, inMemoryStorage.queue.shift()];
+                return inMemoryStorage.queue.shift();
             }
             return null;
         }
-        return await redis.brpop(key, timeout);
+        return await redis.rpop(key);
     }
 };
 
@@ -188,16 +188,15 @@ async function startWorker() {
     // Simple worker loop
     async function processNextJob() {
         try {
-            // Block and wait for job (BRPOP with 5 second timeout)
-            const result = await storage.brpop('queue:jobs', 5);
+            // Use RPOP (non-blocking) instead of BRPOP (blocking) for Upstash REST compatibility
+            const jobId = await storage.rpop('queue:jobs');
 
-            if (!result || result.length < 2) {
-                // No job available, try again
-                setTimeout(processNextJob, 1000);
+            if (!jobId) {
+                // No job available, try again after a short delay
+                setTimeout(processNextJob, 2000);
                 return;
             }
 
-            const jobId = result[1];
             console.log(`📹 Processing job: ${jobId}`);
 
             const job = await getJob(jobId);
