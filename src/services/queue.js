@@ -12,18 +12,26 @@ const inMemoryStorage = {
 let redis = null;
 let useInMemory = false;
 
+try {
+    // Support both standard and REST-specific variable names from Upstash
+    let redisUrl = (process.env.UPSTASH_REDIS_URL || process.env.UPSTASH_REDIS_REST_URL || '').trim();
+    let redisToken = (process.env.UPSTASH_REDIS_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '').trim();
 
-// Check if we have valid Redis credentials
-if (redisUrl && redisUrl.startsWith('https://') && redisToken) {
-    redis = new Redis({
-        url: redisUrl,
-        token: redisToken
-    });
-    console.log('✅ Connected to Upstash Redis');
-} else {
-    useInMemory = true;
-    console.warn('⚠️  Redis credentials not configured - using in-memory storage (for local dev only)');
-}
+    // Strip quotes if user accidentally copied them from Upstash UI
+    if (redisUrl.startsWith('"') && redisUrl.endsWith('"')) redisUrl = redisUrl.slice(1, -1);
+    if (redisToken.startsWith('"') && redisToken.endsWith('"')) redisToken = redisToken.slice(1, -1);
+
+    // Check if we have valid Redis credentials
+    if (redisUrl && redisUrl.startsWith('https://') && redisToken) {
+        redis = new Redis({
+            url: redisUrl,
+            token: redisToken
+        });
+        console.log('✅ Connected to Upstash Redis');
+    } else {
+        useInMemory = true;
+        console.warn('⚠️  Redis credentials not configured - using in-memory storage (for local dev only)');
+    }
 } catch (error) {
     useInMemory = true;
     console.warn('⚠️  Failed to initialize Redis - using in-memory storage:', error.message);
