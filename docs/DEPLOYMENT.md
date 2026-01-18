@@ -110,6 +110,28 @@ docker-compose up -d
    pm2 start src/server.js --name autopromo
    ```
 
+---
+
+## 🔼 Deploying to Vercel
+
+Vercel is excellent for the web interface, but has strict limitations for the video generation pipeline.
+
+### Limitations
+- **Serverless Timeouts**: Vercel functions have a max execution time (usually 10s-30s on free, up to 900s on Pro). Video generation often exceeds these limits.
+- **Binary Support**: Puppeteer and FFmpeg require specific setup or external layers that often exceed the 50MB function limit.
+- **Background Workers**: AutoPromo uses a persistent worker model (`startWorker()`). Vercel's serverless model is short-lived and will not keep the worker running.
+
+### Recommended Strategy
+If you must use Vercel:
+1. **Frontend Only**: Use Vercel to serve the `public/` folder.
+2. **Backend**: Keep the API and Worker on Render or a VPS.
+3. **Connection**: Point your frontend environment variables to your Render/VPS API URL.
+
+> [!WARNING]
+> For the full "URL-to-Video" pipeline, we strongly recommend **Render** or **Docker** to avoid timeout and binary issues.
+
+---
+
 ## Troubleshooting
 
 ### Puppeteer missing shared libraries
