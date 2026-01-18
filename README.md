@@ -6,6 +6,7 @@
 
 **Transform any website URL into a professional marketing video in 60 seconds**
 
+[![Node.js CI](https://github.com/Ansarii/autopromo-video/actions/workflows/node.js.yml/badge.svg)](https://github.com/Ansarii/autopromo-video/actions/workflows/node.js.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js)](https://nodejs.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -53,7 +54,7 @@ Perfect for SaaS demos, product showcases, landing page promotions, and social m
 
 ## 🎬 Demo
 
-![AutoPromo Demo](assets/demo.gif)
+![AutoPromo Demo](assets/demo.webp)
 
 > **Pro Tip**: Use the `pro_director` mode for high-impact social media ads!
 
