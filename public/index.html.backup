@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AutoPromo.video - Automated Marketing Videos</title>
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://cdn.tailwindcss.com" rel="preconnect" />
+
+    <!-- Optimized Tailwind - must load synchronously -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts with display=swap for better performance -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5b2bee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#151022",
+                        "surface-dark": "#201933",
+                        "surface-light": "#2a2140",
+                        "border-dark": "#3f3267",
+                        "text-secondary": "#a092c9"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'glow-gradient': 'radial-gradient(circle at center, rgba(91, 43, 238, 0.15) 0%, rgba(21, 16, 34, 0) 70%)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Material Symbols */
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga';
+        }
+
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #151022;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3f3267;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5b2bee;
+        }
+
+        /* Dialog styles */
+        #customDialog {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #customDialog.show {
+            display: flex;
+        }
+
+        .dialog-content {
+            background: #201933;
+            border: 1px solid #3f3267;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .dialog-button {
+            background: #5b2bee;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Prevent auto-focus scroll on load */
+        html:focus-within {
+            scroll-behavior: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-x-hidden">
+
+    <script>
+        // Prevent auto-scroll on page load
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.addEventListener('load', () => {
+            setTimeout(() => window.scrollTo(0, 0), 0);
+        });
+    </script>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 border-b border-border-dark bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 flex items-center justify-center bg-primary rounded-lg text-white shadow-[0_0_10px_rgba(91,43,238,0.5)]">
+                    <span class="material-symbols-outlined text-[20px]">videocam</span>
+                </div>
+                <span class="text-lg font-bold tracking-tight">AutoPromo.video</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    href="#features">Features</a>
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#how-it-works">How
+                    it Works</a>
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    href="#pricing">Pricing</a>
+                <a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#faq">FAQ</a>
+            </nav>
+            <button
+                class="bg-primary hover:bg-primary/90 text-white text-sm font-bold py-2 px-5 rounded-lg transition-all shadow-[0_0_15px_rgba(91,43,238,0.3)] hover:shadow-[0_0_20px_rgba(91,43,238,0.5)]">
+                Get Started
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN HOMEPAGE CONTENT -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section
+            class="relative pt-32 pb-20 px-6 min-h-[90vh] flex flex-col items-center justify-center overflow-hidden">
+            <!-- Ambient Background Glow -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] -z-10 pointer-events-none">
+            </div>
+            <div class="max-w-4xl w-full text-center flex flex-col gap-8 z-10">
+                <div class="space-y-4">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-2">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        Live & Working
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-tight">
+                        Turn any URL into a <br class="hidden md:block" />
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-white via-primary to-purple-300">viral
+                            marketing video</span>
+                    </h1>
+                    <p class="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto font-light">
+                        Just paste your link. Our system captures, clicks buttons, fills forms, and generates a
+                        professional
+                        demo video automatically.
+                    </p>
+                </div>
+                <!-- Input Module -->
+                <div
+                    class="w-full max-w-2xl mx-auto bg-surface-dark border border-border-dark p-2 rounded-2xl shadow-2xl flex flex-col gap-2 relative z-20">
+                    <form id="videoForm">
+                        <div class="flex flex-col md:flex-row gap-2">
+                            <div class="relative flex-1 group">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-text-secondary">link</span>
+                                </div>
+                                <input id="urlInput"
+                                    class="block w-full pl-10 pr-3 py-4 bg-background-dark border border-border-dark rounded-xl text-white placeholder-text-secondary focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                                    placeholder="https://www.your-website.com" type="url" required />
+                            </div>
+                            <button type="submit"
+                                class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg hover:shadow-primary/25 flex items-center justify-center gap-2 whitespace-nowrap active:scale-95">
+                                <span class="material-symbols-outlined">auto_awesome</span>
+                                Generate Video
+                            </button>
+                        </div>
+                        <!-- Format Selection -->
+                        <div class="bg-background-dark/50 rounded-xl p-1 flex justify-between md:justify-start gap-1">
+                            <label class="cursor-pointer relative flex-1 md:flex-none">
+                                <input checked class="peer sr-only" name="format" type="radio" value="16:9" />
+                                <div
+                                    class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-text-secondary peer-checked:bg-surface-dark peer-checked:text-white peer-checked:shadow-sm transition-all border border-transparent peer-checked:border-border-dark hover:bg-surface-dark/50">
+                                    <span class="material-symbols-outlined text-[18px]">landscape</span>
+                                    <span class="hidden sm:inline">16:9 Landscape</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer relative flex-1 md:flex-none">
+                                <input class="peer sr-only" name="format" type="radio" value="9:16" />
+                                <div
+                                    class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-text-secondary peer-checked:bg-surface-dark peer-checked:text-white peer-checked:shadow-sm transition-all border border-transparent peer-checked:border-border-dark hover:bg-surface-dark/50">
+                                    <span class="material-symbols-outlined text-[18px]">smartphone</span>
+                                    <span class="hidden sm:inline">9:16 Portrait</span>
+                                </div>
+                            </label>
+                        </div>
+                        <!-- Generation Mode -->
+                        <div class="mt-4 mb-2">
+                            <label
+                                class="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2 text-center">Generation
+                                Mode</label>
+                            <div class="bg-background-dark/50 rounded-xl p-1 flex gap-1">
+                                <label class="cursor-pointer relative flex-1">
+                                    <input checked class="peer sr-only" name="mode" type="radio" value="basic" />
+                                    <div
+                                        class="flex flex-col items-center justify-center gap-1 px-3 py-3 rounded-lg text-sm font-medium text-text-secondary peer-checked:bg-surface-dark peer-checked:text-white peer-checked:shadow-sm transition-all border border-transparent peer-checked:border-border-dark hover:bg-surface-dark/50">
+                                        <span class="material-symbols-outlined text-[20px]">movie</span>
+                                        <span>Simple Scroll</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer relative flex-1">
+                                    <input class="peer sr-only" name="mode" type="radio" value="pro_director" />
+                                    <div
+                                        class="flex flex-col items-center justify-center gap-1 px-3 py-3 rounded-lg text-sm font-medium text-text-secondary peer-checked:bg-primary/20 peer-checked:text-primary peer-checked:shadow-sm transition-all border border-transparent peer-checked:border-primary/30 hover:bg-surface-dark/50 group">
+                                        <span
+                                            class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform">theaters</span>
+                                        <span class="flex items-center gap-1">Pro Director <span
+                                                class="bg-primary text-white text-[10px] px-1 rounded px-1">2026</span></span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Duration Buttons -->
+                        <div class="flex gap-2 justify-center mt-1">
+                            <button type="button"
+                                class="duration-btn px-6 py-2 rounded-lg bg-surface-light border border-border-dark text-sm font-medium hover:border-primary transition-all"
+                                data-duration="15">15s</button>
+                            <button type="button"
+                                class="duration-btn px-6 py-2 rounded-lg bg-primary border border-primary text-sm font-medium text-white"
+                                data-duration="30">30s</button>
+                            <button type="button"
+                                class="duration-btn px-6 py-2 rounded-lg bg-surface-light border border-border-dark text-sm font-medium hover:border-primary transition-all"
+                                data-duration="45">45s</button>
+                        </div>
+
+                        <!-- Legal Checkbox -->
+                        <div class="flex items-center gap-2 justify-center mt-2">
+                            <input type="checkbox" id="legalConfirm"
+                                class="w-4 h-4 text-primary bg-background-dark border-border-dark rounded focus:ring-primary"
+                                checked />
+                            <label for="legalConfirm" class="text-xs text-text-secondary cursor-pointer">I have rights
+                                to
+                                promote this website</label>
+                        </div>
+
+                        <!-- Advanced Options Toggle -->
+                        <div class="mt-4 border-t border-border-dark pt-4">
+                            <button type="button" id="advancedToggle"
+                                class="w-full flex items-center justify-center gap-2 text-sm text-text-secondary hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">tune</span>
+                                <span>Advanced Options</span>
+                                <span class="material-symbols-outlined text-[18px] transition-transform"
+                                    id="advancedArrow">expand_more</span>
+                            </button>
+
+                            <div id="advancedOptions" class="hidden mt-4 space-y-4">
+                                <!-- Music Track Selector -->
+                                <div>
+                                    <label class="block text-sm font-medium text-white mb-2">Background Music</label>
+                                    <select id="musicTrack"
+                                        class="w-full px-3 py-2 bg-surface-light border border-border-dark rounded-lg text-white text-sm focus:ring-2 focus:ring-primary">
+                                        <option value="">Random Track</option>
+                                        <option value="track1.mp3">Inspired (Upbeat)</option>
+                                        <option value="track2.mp3">Fluffing a Duck (Fun)</option>
+                                        <option value="track3.mp3">Wallpaper (Chill)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Font Weight Selector -->
+                                <div>
+                                    <label class="block text-sm font-medium text-white mb-2">Font Weight</label>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <button type="button"
+                                            class="font-weight-btn px-3 py-2 text-sm bg-surface-light border border-border-dark rounded-lg hover:border-primary transition-all"
+                                            data-weight="regular">Regular</button>
+                                        <button type="button"
+                                            class="font-weight-btn px-3 py-2 text-sm bg-surface-light border border-border-dark rounded-lg hover:border-primary transition-all"
+                                            data-weight="medium">Medium</button>
+                                        <button type="button"
+                                            class="font-weight-btn px-3 py-2 text-sm bg-primary border border-primary rounded-lg text-white"
+                                            data-weight="bold">Bold</button>
+                                    </div>
+                                </div>
+
+                                <!-- Text Color Picker -->
+                                <div>
+                                    <label class="block text-sm font-medium text-white mb-2">Text Color</label>
+                                    <div class="flex gap-2">
+                                        <div class="flex-1 flex gap-2">
+                                            <button type="button"
+                                                class="color-preset flex-1 h-10 rounded-lg border-2 border-transparent"
+                                                style="background: white;" data-color="white" title="White"></button>
+                                            <button type="button"
+                                                class="color-preset flex-1 h-10 rounded-lg border-2 border-transparent"
+                                                style="background: #FFD700;" data-color="#FFD700" title="Gold"></button>
+                                            <button type="button"
+                                                class="color-preset flex-1 h-10 rounded-lg border-2 border-transparent"
+                                                style="background: #FF1493;" data-color="#FF1493" title="Pink"></button>
+                                            <button type="button"
+                                                class="color-preset flex-1 h-10 rounded-lg border-2 border-primary"
+                                                style="background: #00CED1;" data-color="#00CED1" title="Cyan"></button>
+                                        </div>
+                                        <input type="color" id="textColorPicker" value="#00CED1"
+                                            class="w-12 h-10 bg-transparent cursor-pointer rounded-lg">
+                                    </div>
+                                </div>
+
+                                <!-- Logo Upload -->
+                                <div>
+                                    <label class="block text-sm font-medium text-white mb-2">Logo Overlay
+                                        (Optional)</label>
+                                    <input type="file" id="logoUpload" accept="image/*"
+                                        class="block w-full text-sm text-text-secondary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90 file:cursor-pointer">
+
+                                    <!-- Logo Position (shown when logo uploaded) -->
+                                    <div id="logoPositionOptions" class="hidden mt-3 space-y-2">
+                                        <label class="block text-xs text-text-secondary">Logo Position</label>
+                                        <div class="grid grid-cols-2 gap-2">
+                                            <button type="button"
+                                                class="logo-position-btn px-3 py-2 text-xs bg-surface-light border border-border-dark rounded-lg hover:border-primary transition-all"
+                                                data-position="top-left">Top Left</button>
+                                            <button type="button"
+                                                class="logo-position-btn px-3 py-2 text-xs bg-primary border border-primary rounded-lg text-white"
+                                                data-position="top-right">Top Right</button>
+                                            <button type="button"
+                                                class="logo-position-btn px-3 py-2 text-xs bg-surface-light border border-border-dark rounded-lg hover:border-primary transition-all"
+                                                data-position="bottom-left">Bottom Left</button>
+                                            <button type="button"
+                                                class="logo-position-btn px-3 py-2 text-xs bg-surface-light border border-border-dark rounded-lg hover:border-primary transition-all"
+                                                data-position="bottom-right">Bottom Right</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p class="text-sm text-text-secondary/60 text-center">Free for local development • No limits</p>
+                </div>
+        </section>
+
+        <!-- Features Section -->
+        <!-- LEFT PANE: Progress & Logs -->
+        <div class="w-full lg:w-5/12 flex flex-col gap-6">
+            <!-- Page Heading -->
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 mb-1">
+                    <span
+                        class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
+                        Processing
+                    </span>
+                </div>
+                <h1 class="text-white tracking-tight text-3xl md:text-4xl font-bold leading-tight">
+                    Generating Video</h1>
+                <div class="flex items-center gap-2 text-slate-400 text-sm font-medium overflow-hidden">
+                    <span class="material-symbols-outlined text-[18px]">link</span>
+                    <p id="progressUrl" class="truncate"></p>
+                </div>
+            </div>
+
+            <!-- Timeline / Stepper -->
+            <div class="bg-surface-dark rounded-xl border border-border-dark p-6 shadow-sm">
+                <h3 class="text-sm font-semibold uppercase tracking-wider mb-6 text-slate-400">Progress
+                </h3>
+                <div id="progressSteps" class="grid grid-cols-[32px_1fr] gap-x-4">
+                    <!-- Steps will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Console Log -->
+            <div
+                class="flex flex-col flex-grow min-h-[240px] bg-[#0d0a15] rounded-xl border border-border-dark overflow-hidden">
+                <div class="flex items-center justify-between px-4 py-2 bg-[#1a1526] border-b border-border-dark">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-slate-400 text-sm">terminal</span>
+                        <span class="text-slate-400 text-xs font-mono uppercase">Console Output</span>
+                    </div>
+                </div>
+                <div id="consoleLog"
+                    class="p-4 font-mono text-xs overflow-y-auto flex-1 max-h-[300px] lg:max-h-[400px]">
+                    <!-- Console logs will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: Video Preview -->
+        <div class="w-full lg:w-7/12 flex flex-col gap-6">
+            <!-- Video Container -->
+            <div
+                class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-border-dark">
+                <!-- Loading State -->
+                <div id="videoLoading"
+                    class="absolute inset-0 bg-surface-dark flex flex-col items-center justify-center z-10">
+                    <div class="absolute inset-0 opacity-20"
+                        style="background: radial-gradient(circle at 50% 50%, #5b2bee 0%, transparent 50%); filter: blur(40px);">
+                    </div>
+                    <div class="relative z-20 flex flex-col items-center gap-6">
+                        <div class="relative size-20">
+                            <svg class="size-full -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-slate-800"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="currentColor" stroke-width="2"></path>
+                                <path id="progressCircle" class="text-primary"
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="currentColor" stroke-dasharray="0, 100" stroke-width="2"></path>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span id="progressPercentCircle" class="text-sm font-bold text-white">0%</span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-lg font-medium text-white mb-1">Rendering your video</h3>
+                            <p id="videoStatusText" class="text-slate-400 text-sm max-w-xs mx-auto">
+                                Initializing browser and analyzing content...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Player (Hidden until ready) -->
+                <video id="progressVideoPlayer" class="hidden w-full h-full" controls></video>
+            </div>
+
+            <!-- Action Bar -->
+            <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl border border-dashed border-border-dark bg-surface-dark/50">
+                <div class="flex flex-col gap-1">
+                    <h4 class="text-white text-sm font-medium">Video Actions</h4>
+                    <p class="text-slate-500 text-xs">Available once rendering is complete</p>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <button id="copyLinkBtnProgress"
+                        class="flex-1 sm:flex-none flex items-center justify-center gap-2 h-10 px-4 rounded-lg border border-border-dark text-slate-500 text-sm font-medium cursor-not-allowed opacity-60"
+                        disabled>
+                        <span class="material-symbols-outlined text-[18px]">link</span>
+                        Copy Link
+                    </button>
+                    <button id="downloadBtnProgress"
+                        class="flex-1 sm:flex-none flex items-center justify-center gap-2 h-10 px-6 rounded-lg bg-slate-800 text-slate-400 text-sm font-bold cursor-not-allowed"
+                        disabled>
+                        <span class="material-symbols-outlined text-[18px]">download</span>
+                        Download MP4
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <button id="backToHomeBtn"
+                class="flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-surface-dark border border-border-dark text-white hover:border-primary transition-all">
+                <span class="material-symbols-outlined">arrow_back</span>
+                Back to Home
+            </button>
+        </div>
+    </div>
+    </div>
+
+    <!-- Result Card -->
+    <div id="resultCard"
+        class="hidden w-full max-w-2xl mx-auto bg-surface-dark border border-primary/50 rounded-2xl p-6">
+        <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto">
+            <span class="material-symbols-outlined text-primary text-4xl">check_circle</span>
+        </div>
+        <h3 class="text-xl font-bold text-center">Video Ready!</h3>
+        <video id="resultVideo" controls class="w-full rounded-lg" style="max-height: 400px;"></video>
+        <div class="flex gap-2">
+            <button id="downloadBtn"
+                class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">download</span>
+                Download
+            </button>
+            <button id="newVideoBtn"
+                class="flex-1 bg-surface-dark border border-border-dark hover:border-primary text-white font-medium py-3 px-6 rounded-lg transition-all">
+                New Video
+            </button>
+        </div>
+    </div>
+    </div>
+
+    <!-- Abstract Video Preview -->
+    <div class="mt-16 w-full max-w-5xl relative perspective-1000 group">
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10 pointer-events-none">
+        </div>
+        <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-60 transform md:rotate-x-6 md:scale-95 transition-transform duration-700 ease-out group-hover:rotate-x-0 group-hover:scale-100">
+            <div class="h-64 rounded-xl bg-surface-dark border border-border-dark overflow-hidden relative shadow-2xl bg-cover bg-center"
+                style="background-image: url('/images/preview-1.png');">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div
+                        class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
+                        <span class="material-symbols-outlined text-white">play_arrow</span>
+                    </div>
+                </div>
+            </div>
+            <div class="h-64 rounded-xl bg-surface-dark border border-border-dark overflow-hidden relative shadow-2xl bg-cover bg-center md:-mt-8 z-10"
+                style="background-image: url('/images/preview-2.png');">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div
+                        class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
+                        <span class="material-symbols-outlined text-white">play_arrow</span>
+                    </div>
+                </div>
+            </div>
+            <div class="h-64 rounded-xl bg-surface-dark border border-border-dark overflow-hidden relative shadow-2xl bg-cover bg-center"
+                style="background-image: url('/images/preview-3.png');">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div
+                        class="w-12 h-12 bg-white/20 backdrop-blur rounded-full flex items-center justify-center cursor-pointer hover:bg-white/30 transition-colors">
+                        <span class="material-symbols-outlined text-white">play_arrow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 bg-surface-dark/30 border-y border-border-dark/50" id="features">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 md:text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-text-secondary text-lg">Create professional marketing videos in seconds. Our system
+                    handles everything automatically.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="p-8 rounded-2xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:-translate-y-1 group">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-primary/20 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">smart_toy</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Interactive Demos</h3>
+                    <p class="text-text-secondary leading-relaxed">Automatically clicks buttons, fills forms, and
+                        navigates to show real functionality.</p>
+                </div>
+                <div
+                    class="p-8 rounded-2xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:-translate-y-1 group">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">brush</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Custom Branding</h3>
+                    <p class="text-text-secondary leading-relaxed">Custom fonts, text overlays, and background music for
+                        professional results.</p>
+                </div>
+                <div
+                    class="p-8 rounded-2xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:-translate-y-1 group">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">speed</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">Lightning Fast</h3>
+                    <p class="text-text-secondary leading-relaxed">Generate HD videos in under 60 seconds. Download and
+                        share instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-24 px-6 relative overflow-hidden" id="how-it-works">
+        <div
+            class="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] -z-10">
+        </div>
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="flex-1 space-y-8">
+                    <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+                        From URL to Video <br />
+                        <span class="text-primary">in 3 Simple Steps</span>
+                    </h2>
+                    <p class="text-text-secondary text-lg">Stop spending hours in video editors. AutoPromo streamlines
+                        your workflow.</p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-dark border border-border-dark flex items-center justify-center font-bold text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                1</div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">Paste your URL</h4>
+                                <p class="text-text-secondary text-sm">Input the link to your website or landing page.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-dark border border-border-dark flex items-center justify-center font-bold text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                2</div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">AI Generates</h4>
+                                <p class="text-text-secondary text-sm">Our system captures, clicks, and creates your
+                                    demo.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 group">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-dark border border-border-dark flex items-center justify-center font-bold text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                3</div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">Download & Share</h4>
+                                <p class="text-text-secondary text-sm">Get your HD video instantly and share everywhere.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 bg-surface-dark/30 border-y border-border-dark/50" id="pricing">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Simple, Transparent Pricing</h2>
+            <p class="text-text-secondary text-lg mb-12">Currently free for local development with all features
+                included.</p>
+            <div
+                class="relative bg-gradient-to-b from-surface-dark to-background-dark border border-primary/50 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(91,43,238,0.1)] overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-2 rounded-bl-xl uppercase tracking-wider shadow-md">
+                    Free Beta</div>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="text-left space-y-4 flex-1">
+                        <h3 class="text-2xl font-bold text-white">Developer Plan</h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-5xl font-black text-white">$0</span>
+                            <span class="text-text-secondary">/forever</span>
+                        </div>
+                        <p class="text-text-secondary">Perfect for testing and development</p>
+                    </div>
+                    <div class="w-px h-32 bg-border-dark hidden md:block"></div>
+                    <div class="flex-1 w-full">
+                        <ul class="space-y-3 text-left">
+                            <li class="flex items-center gap-3 text-sm text-gray-300">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                Unlimited generations
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-300">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                All aspect ratios
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-300">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                Background music
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-300">
+                                <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                                Interactive demos
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 px-6" id="faq">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details
+                    class="group bg-surface-dark rounded-xl border border-border-dark open:border-primary/50 transition-all">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6">
+                        <span class="text-lg">How does it work?</span>
+                        <span class="transition group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-text-secondary px-6 pb-6 pt-0 leading-relaxed">
+                        We use Puppeteer to launch Chrome, navigate to your URL, automatically click buttons, fill
+                        forms, capture screenshots at 10 FPS, and use FFmpeg to create a professional video with custom
+                        fonts and background music.
+                    </div>
+                </details>
+                <details
+                    class="group bg-surface-dark rounded-xl border border-border-dark open:border-primary/50 transition-all">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6">
+                        <span class="text-lg">What makes the videos interactive?</span>
+                        <span class="transition group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-text-secondary px-6 pb-6 pt-0 leading-relaxed">
+                        Our system detects clickable elements using keyword scoring, automatically clicks them to show
+                        different sections, fills forms with realistic typing animation, and can handle login flows.
+                    </div>
+                </details>
+                <details
+                    class="group bg-surface-dark rounded-xl border border-border-dark open:border-primary/50 transition-all">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6">
+                        <span class="text-lg">What formats are supported?</span>
+                        <span class="transition group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-text-secondary px-6 pb-6 pt-0 leading-relaxed">
+                        We support 16:9 (landscape for YouTube, LinkedIn) and 9:16 (portrait for TikTok, Instagram
+                        Reels). Videos include custom Inter Bold font overlays and royalty-free background music.
+                    </div>
+                </details>
+                <details
+                    class="group bg-surface-dark rounded-xl border border-border-dark open:border-primary/50 transition-all">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-6">
+                        <span class="text-lg">Is there a cost?</span>
+                        <span class="transition group-open:rotate-180">
+                            <span class="material-symbols-outlined">expand_more</span>
+                        </span>
+                    </summary>
+                    <div class="text-text-secondary px-6 pb-6 pt-0 leading-relaxed">
+                        Currently free for local development with no limits. All premium features included: background
+                        music, custom fonts, form filling, and interactive demos.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-border-dark bg-background-dark pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-8 h-8 flex items-center justify-center bg-primary rounded-lg text-white">
+                    <span class="material-symbols-outlined text-[20px]">videocam</span>
+                </div>
+                <span class="text-xl font-bold">AutoPromo.video</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-8 mb-8 text-sm text-text-secondary">
+                <a href="#features" class="hover:text-white transition-colors">Features</a>
+                <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+            </div>
+            <p class="text-xs text-text-secondary/50 text-center">
+                © 2024 AutoPromo.video • Built with Puppeteer, FFmpeg, and Node.js
+            </p>
+        </div>
+    </footer>
+    </div> <!-- End mainContent -->
+
+    <!-- Custom Dialog -->
+    <div id="customDialog">
+        <div class="dialog-content">
+            <div id="dialogMessage" class="text-white mb-4"></div>
+            <button class="dialog-button" onclick="closeDialog()">OK</button>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

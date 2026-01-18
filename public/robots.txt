@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Optimize crawl rate
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://autopromo.video/sitemap.xml
+
+# Block assets that don't need indexing
+User-agent: *
+Disallow: /api/
+Disallow: /videos/
+Disallow: /music/
+Disallow: /*.mp4$
+Disallow: /*.mp3$

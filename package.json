@@ -1,0 +1,39 @@
+{
+  "name": "autopromo-video",
+  "version": "1.0.0",
+  "description": "Transform any website URL into a professional marketing video in 60 seconds",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test:video": "node scripts/test-video-pipeline.js"
+  },
+  "keywords": [
+    "video",
+    "marketing",
+    "automation",
+    "puppeteer",
+    "ffmpeg"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.490.0",
+    "@aws-sdk/s3-request-presigner": "^3.490.0",
+    "@upstash/redis": "^1.28.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "helmet": "^7.1.0",
+    "multer": "^2.0.2",
+    "nanoid": "^3.3.7",
+    "puppeteer": "^24.34.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
