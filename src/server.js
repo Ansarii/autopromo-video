@@ -14,11 +14,20 @@ app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet({
-  contentSecurityPolicy: false, // Allow inline scripts for demo
-  crossOriginEmbedderPolicy: false
+  contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-app.use(cors());
+// CORS configuration - allow all in development, restrict in production if needed
+const corsOptions = {
+  origin: true, // Reflects the request origin, or set to specific Vercel URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

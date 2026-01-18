@@ -108,6 +108,7 @@ router.post('/', upload.single('logo'), async (req, res) => {
             clientIp
         });
 
+        console.log(`[API] Job created successfully: ${jobId} for IP: ${clientIp}`);
         res.status(202).json({
             id: jobId,
             status: 'queued',
@@ -127,8 +128,10 @@ router.get('/:id', async (req, res) => {
         const job = await getJob(id);
 
         if (!job) {
+            console.warn(`[API] Job NOT FOUND: ${id}`);
             return res.status(404).json({ error: 'Job not found' });
         }
+        console.log(`[API] Job found: ${id}, status: ${job.status}`);
 
         // Redact sensitive credentials before returning to client
         const safeJob = { ...job };
