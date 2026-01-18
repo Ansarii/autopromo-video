@@ -1,3 +1,8 @@
+// API Configuration
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? ''
+    : (localStorage.getItem('API_BASE_URL') || '');
+
 // State
 let selectedDuration = 30;
 let currentJobId = null;
@@ -419,7 +424,7 @@ async function startVideoGeneration(url) {
             addConsoleLog(`Logo: ${logoFile.name} at ${selectedLogoPosition}`, 'info');
         }
 
-        const response = await fetch('/api/jobs', {
+        const response = await fetch(`${API_BASE_URL}/api/jobs`, {
             method: 'POST',
             body: formData // Don't set Content-Type header - browser will set it with boundary
         });
@@ -455,7 +460,7 @@ function startPolling() {
 
     pollingInterval = setInterval(async () => {
         try {
-            const response = await fetch(`/api/jobs/${currentJobId}`);
+            const response = await fetch(`${API_BASE_URL}/api/jobs/${currentJobId}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
