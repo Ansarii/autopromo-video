@@ -5,17 +5,22 @@ const path = require('path');
 
 // Initialize R2 client (S3-compatible)
 function getR2Client() {
-    if (!process.env.R2_ACCOUNT_ID || !process.env.R2_ACCESS_KEY_ID) {
-        console.warn('R2 credentials not configured, will skip upload');
+    const accountId = (process.env.R2_ACCOUNT_ID || '').trim();
+    const accessKeyId = (process.env.R2_ACCESS_KEY_ID || '').trim();
+    const secretAccessKey = (process.env.R2_SECRET_ACCESS_KEY || '').trim();
+    const endpoint = (process.env.R2_ENDPOINT || '').trim();
+
+    if (!accessKeyId || !secretAccessKey || (!accountId && !endpoint)) {
+        console.warn('R2 credentials not fully configured, will skip upload');
         return null;
     }
 
     return new S3Client({
         region: 'auto',
-        endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+        endpoint: endpoint || `https://${accountId}.r2.cloudflarestorage.com`,
         credentials: {
-            accessKeyId: process.env.R2_ACCESS_KEY_ID,
-            secretAccessKey: process.env.R2_SECRET_ACCESS_KEY
+            accessKeyId,
+            secretAccessKey
         }
     });
 }
