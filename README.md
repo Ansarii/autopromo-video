@@ -52,12 +52,6 @@ Perfect for SaaS demos, product showcases, landing page promotions, and social m
 - 📡 **REST API** - Full programmatic access
 - 🛡️ **Security** - Helmet.js, CORS, input validation
 
-## 🎬 Demo
-
-![AutoPromo Demo](assets/demo.webp)
-
-> **Pro Tip**: Use the `pro_director` mode for high-impact social media ads!
-
 ```bash
 # Quick example
 curl -X POST http://localhost:3000/api/jobs \
@@ -130,7 +124,7 @@ See [docs/API.md](docs/API.md) for complete API documentation.
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](assets/architecture.png)
+![Architecture Diagram](./assets/architecture.png)
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for a deep dive into how it works.
 
