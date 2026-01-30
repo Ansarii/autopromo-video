@@ -364,7 +364,7 @@ async function tryFillForm(page, captureFrame, maxFrames) {
                 // Generate appropriate content
                 let textToType = '';
                 if (field.type === 'email') {
-                    textToType = 'demo@autopromo.video';
+                    textToType = 'demo@autopromo-video.vercel.app';
                 } else if (field.type === 'search') {
                     textToType = 'product demo';
                 } else {

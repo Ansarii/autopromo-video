@@ -56,7 +56,7 @@ Perfect for SaaS demos, product showcases, landing page promotions, and social m
 # Quick example
 curl -X POST http://localhost:3000/api/jobs \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://example.com", "format": "16:9", "duration": 30}'
+  -d '{"url": "https://www.neoninnovationlab.com", "format": "16:9", "duration": 30}'
 ```
 
 ## 🚀 Quick Start
@@ -172,7 +172,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by the AutoPromo.video team**
 
-[Website](https://autopromo.video) • [Twitter](https://twitter.com/AutoPromoVideo) • [GitHub](https://github.com/Ansarii/autopromo-video)
+[Website](https://autopromo-video.vercel.app) • [Neon Innovation Lab](https://www.neoninnovationlab.com/) • [GitHub](https://github.com/Ansarii/autopromo-video)
 
 ⭐ Star us on GitHub — it helps!
 

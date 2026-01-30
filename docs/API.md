@@ -5,7 +5,7 @@ AutoPromo Video provides a REST API to programmatically generate marketing video
 ## Base URL
 
 Local development: `http://localhost:3000`
-Production: `https://your-app-name.render.com` (example)
+Production: `https://autopromo-video.vercel.app`
 
 ## Authentication
 
@@ -35,7 +35,7 @@ Create a new video generation job.
 
 ```json
 {
-  "url": "https://example.com",
+  "url": "https://www.neoninnovationlab.com",
   "format": "16:9",
   "duration": 30,
   "mode": "pro_director"
@@ -75,8 +75,8 @@ Check the status of a specific generation job and retrieve the download link whe
 {
   "jobId": "abc12345",
   "status": "completed",
-  "videoUrl": "https://pub-xxx.r2.dev/videos/abc12345.mp4",
-  "thumbnailUrl": "https://pub-xxx.r2.dev/thumbnails/abc12345.png"
+  "videoUrl": "https://storage.neoninnovationlab.com/videos/abc12345.mp4",
+  "thumbnailUrl": "https://storage.neoninnovationlab.com/thumbnails/abc12345.png"
 }
 ```
 

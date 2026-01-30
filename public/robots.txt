@@ -5,7 +5,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://autopromo.video/sitemap.xml
+Sitemap: https://autopromo-video.vercel.app/sitemap.xml
 
 # Block assets that don't need indexing
 User-agent: *

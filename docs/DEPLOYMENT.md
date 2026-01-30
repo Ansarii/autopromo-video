@@ -64,7 +64,7 @@ docker-compose up -d
 
 1. Create a new Heroku app:
    ```bash
-   heroku create your-app-name
+   heroku git:remote -a autopromo-video
    ```
 2. Add the FFmpeg buildpack:
    ```bash
