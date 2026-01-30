@@ -137,6 +137,12 @@ dist/
 frames-*
 videos-*
 
+# Allow assets
+!assets/
+!assets/*.png
+!media/
+!media/*.png
+
 # OS files
 .DS_Store
 .DS_Store?
