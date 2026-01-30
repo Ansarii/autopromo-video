@@ -1,6 +1,6 @@
 <div align="center">
 
-![AutoPromo.video Banner](./media/banner.png)
+![AutoPromo.video Banner](./assets/banner.png)
 
 # AutoPromo.video
 
