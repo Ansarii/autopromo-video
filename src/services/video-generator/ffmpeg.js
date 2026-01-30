@@ -20,7 +20,10 @@ if (ffmpegPath) {
         ffmpeg.setFfprobePath(ffprobePath);
     }
 } else {
-    console.warn('FFmpeg not found in common locations, relying on PATH');
+    // Fail fast if ffmpeg is not found
+    console.error('CRITICAL: FFmpeg not found in common locations or PATH');
+    console.error('Please install ffmpeg: brew install ffmpeg (macOS) or sudo apt-get install ffmpeg (Linux)');
+    throw new Error('FFmpeg binary not found. Cannot generate video.');
 }
 
 
