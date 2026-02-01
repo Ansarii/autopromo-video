@@ -162,3 +162,6 @@ Thumbs.db
 
 # Docker
 .dockerignore
+
+# Ads.txt
+public/ads.txt
